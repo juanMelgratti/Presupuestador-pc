@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/back.css">
+    <link rel="stylesheet" href="css/modal.css">
     <script src="js/objetos.js"></script>
-    <script defer src="js/productos.js"></script>
+    <script src="js/productos.js"></script>
+    <script src="js/modalCarro.js"></script>
     <title>Simulador de Armado de Pc</title>
 </head>
 <body>
@@ -22,7 +24,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-              <a class="nav-link" href="#">Inicio</a>
+              <a class="nav-link" href="index.html">Inicio</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">¿Cómo Funciona?</a>
@@ -35,12 +37,12 @@
             </li>
 
           </ul>
-                <div class="nav-link disabled"><span id="total">0</span> <i class="fas fa-shopping-cart"></i></div>
+                <div class="carrito"><span id="total">0</span> <a class="btn btn-outline-danger boton-carrito" onclick="verCarrito(carro), modal(carro), resetear(), verTotalEnModal(carro)" data-toggle="modal" data-target="#carrito-modal"><i class="fas fa-shopping-cart"></i></a></div>
             </div>
           </nav>
         </div>
     </div>
-    
+    <div id="mod"></div>
     <div class="jumbotron"> Jumbotron </div>
 
     <div class="main-container row d-flex">
@@ -48,15 +50,15 @@
       <div class="nav-container col-2">
         <nav>
           <ul>
-            <li><a class="btn boton" href="#" onclick="cambiar(1)">Placas madres</a></li>
-            <li><a class="btn boton" href="#" onclick="cambiar(2)">Procesarodres</a></li>
-            <li><a class="btn boton" href="#">Memorias Ram</a></li>
-            <li><a class="btn boton" href="#">Placas de video</a></li>
-            <li><a class="btn boton" href="#">Discos</a></li>
-            <li><a class="btn boton" href="#">Gabinetes</a></li>
-            <li><a class="btn boton" href="#">Monitores</a></li>
-            <li><a class="btn boton" href="#">Mouse</a></li>
-            <li><a class="btn boton" href="#">Teclados</a></li>
+            <li><a class="btn btn-outline-danger boton-carrito boton"  onclick="cambiar(1)">Placas madres</a></li>
+            <li><a class="btn btn-outline-danger boton-carrito boton"  onclick="cambiar(2)">Procesarodres</a></li>
+            <li><a class="btn btn-outline-danger boton-carrito boton" >Memorias Ram</a></li>
+            <li><a class="btn btn-outline-danger boton-carrito boton" >Placas de video</a></li>
+            <li><a class="btn btn-outline-danger boton-carrito boton" >Discos</a></li>
+            <li><a class="btn btn-outline-danger boton-carrito boton" >Gabinetes</a></li>
+            <li><a class="btn btn-outline-danger boton-carrito boton" >Monitores</a></li>
+            <li><a class="btn btn-outline-danger boton-carrito boton" >Mouse</a></li>
+            <li><a class="btn btn-outline-danger boton-carrito boton" >Teclados</a></li>
           </ul>  
         </nav>
       </div>
@@ -68,11 +70,10 @@
       </div>
       </div>
     </div>    
-    <hr>
 
     <footer class="page-footer font-small unique-color-dark">
 
-      <div style="background-color: #6351ce;">
+      <div style="background-color: #e41f1f;">
         <div class="container">
     
           <div class="row py-4 d-flex align-items-center">
@@ -97,7 +98,6 @@
     
         </div>
       </div>
-    
 
       <div class="container text-center text-md-left mt-5 ">  
         <div class="row m-lg-auto">

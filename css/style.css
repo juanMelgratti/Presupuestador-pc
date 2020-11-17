@@ -19,7 +19,8 @@
     border-radius: 3px 3px 0 0;
     overflow: hidden;
     position: relative;
-    height: 250px;
+    height: 180px;
+    justify-content: center;
 }
 .card-product .img-wrap img {
     max-height: 100%;
@@ -55,8 +56,10 @@
 
 .boton:hover{
     color: red;
+    cursor: pointer;
 }
 
 .jumbotron{
     background-color: #1c2331;
 }
+

@@ -1,5 +1,6 @@
 class Producto{
-    constructor(imagen, precio, url){
+    constructor(nombre, imagen, precio, url){
+        this.nombre = nombre
         this.imagen = imagen
         this.precio = precio
         this.url = url
