@@ -5,5 +5,15 @@ class Producto{
         this.precio = precio
         this.url = url
     }
-};
+}
+
+class Carro{
+    constructor(){
+        this.carro = []
+    }
+    
+}
+
+
+
 

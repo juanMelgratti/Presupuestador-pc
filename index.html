@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/back.css">
     <link rel="stylesheet" href="css/modal.css">
+    <script src="js/arreglos.js"></script>
     <script src="js/objetos.js"></script>
-    <script src="js/productos.js"></script>
-    <script src="js/modalCarro.js"></script>
+    <script defer src="js/productos.js"></script>
+    <script defer src="js/modalCarro.js"></script>
     <title>Simulador de Armado de Pc</title>
 </head>
 <body>
@@ -37,7 +38,7 @@
             </li>
 
           </ul>
-                <div class="carrito"><span id="total">0</span> <a class="btn btn-outline-danger boton-carrito" onclick="verCarrito(carro), modal(carro), resetear(), verTotalEnModal(carro)" data-toggle="modal" data-target="#carrito-modal"><i class="fas fa-shopping-cart"></i></a></div>
+                <div class="carrito"><span id="total"></span> <a class="btn btn-outline-danger boton-carrito" onclick="modal(carro), resetear(), verTotalEnModal()" data-toggle="modal" data-target="#carrito-modal"><i class="fas fa-shopping-cart"></i></a></div>
             </div>
           </nav>
         </div>
@@ -52,9 +53,10 @@
           <ul>
             <li><a class="btn btn-outline-danger boton-carrito boton"  onclick="cambiar(1)">Placas madres</a></li>
             <li><a class="btn btn-outline-danger boton-carrito boton"  onclick="cambiar(2)">Procesarodres</a></li>
-            <li><a class="btn btn-outline-danger boton-carrito boton" >Memorias Ram</a></li>
+            <li><a class="btn btn-outline-danger boton-carrito boton" onclick="cambiar(3)">Memorias Ram</a></li>
             <li><a class="btn btn-outline-danger boton-carrito boton" >Placas de video</a></li>
             <li><a class="btn btn-outline-danger boton-carrito boton" >Discos</a></li>
+            <li><a class="btn btn-outline-danger boton-carrito boton" >Fuentes</a></li>
             <li><a class="btn btn-outline-danger boton-carrito boton" >Gabinetes</a></li>
             <li><a class="btn btn-outline-danger boton-carrito boton" >Monitores</a></li>
             <li><a class="btn btn-outline-danger boton-carrito boton" >Mouse</a></li>
@@ -73,14 +75,14 @@
 
     <footer class="page-footer font-small unique-color-dark">
 
-      <div style="background-color: #e41f1f;">
+      <div style="background-color: #420068;">
         <div class="container">
     
           <div class="row py-4 d-flex align-items-center">
     
 
             <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
-              <h6 class="mb-0">¡Contáctame en mis redes!</h6>
+              <h6 class="mb-0" style="color: #eceff1">¡Contáctame en mis redes!</h6>
             </div>
 
             <div class="col-md-6 col-lg-7 text-center text-md-right">
@@ -105,8 +107,8 @@
             <h6 class="text-uppercase font-weight-bold">Proyecto presupuestador de computadoras.</h6>
             <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
             <p>Este es un proyecto que hice para el curso de javascript de coderhouse y consiste
-              en un presupuestador de armado de pc con los precios en pesos argentinos, los precios serán obtenidos
-              desde mercado libre. Puestos a mano.</p>
+              en un presupuestador de armado de pc con los precios en pesos argentinos, los precios son obtenidos
+              desde mercado libre.</p>
           </div>
           <div class="col-md-6 col-lg-7 text-center text-md-right">
     
