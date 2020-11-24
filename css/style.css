@@ -25,6 +25,7 @@
 .card-product .img-wrap img {
     max-height: 100%;
     max-width: 100%;
+    object-fit: contain;
 }
 .card-product .info-wrap {
     overflow: hidden;
