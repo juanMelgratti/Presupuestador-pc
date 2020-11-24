@@ -7,12 +7,6 @@ class Producto{
     }
 }
 
-class Carro{
-    constructor(){
-        this.carro = []
-    }
-    
-}
 
 
 

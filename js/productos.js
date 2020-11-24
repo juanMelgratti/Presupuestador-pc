@@ -1,7 +1,6 @@
 var total = 0;
 var carro = [];
 
-//armado de carro
 function armarCarro(){
   let carrito = localStorage.getItem("carro")
   if(carrito != null){
@@ -12,97 +11,53 @@ function armarCarro(){
 //armadoURL
 var urlBusqueda = ''
 
-function procesador(serie){
-  urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA1693&q='+serie
-}
-
-function motherboard(serie){
-  urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA1692&q='+serie
-}
-
-function ram(serie){
-  urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA1694&q='+serie
-}
-
-function tarjetaGrafica(serie){
-  urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA1658&q='+serie
-}
-
-function discos(serie){
-  urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA1672&q='+serie
-}
-
-function fuente(serie){
-  urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA1695&q='+serie
-}
-
-function gabinete(serie){
-  urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA4286&q='+serie
-}
-
-function monitor(serie){
-  urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA14407&q='+serie
-}
-
-function mouse(serie){
-  urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA1714&q='+serie
-}
-
-function teclado(serie){
-  urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA418448&q='+serie
-}
-
 function armarURL(tipo, serie){
-  let s = serie
   switch(tipo != ''){
     case tipo == 'procesador':
-      procesador(s)
+      urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA1693&q='+serie
       break;
 
     case tipo == 'motherboard':
-      return motherboard(s)
+      urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA1692&q='+serie
+      break;
 
     case tipo == 'ram':
-      ram(s)
+      urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA1694&q='+serie
       break;
 
     case tipo == 'tarjetaGrafica':
-      tarjetaGrafica(s)
+      urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA1658&q='+serie
       break;
 
     case tipo == 'disco':
-      discos(s)
+      urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA1672&q='+serie
       break;
 
     case tipo == 'fuente':
-      fuente(s)
+      urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA1695&q='+serie
       break;
 
     case tipo == 'gabinete':
-      gabinete(s)
+      urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA4286&q='+serie
       break;
 
     case tipo == 'monitor':
-      monitor(s)
+      urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA14407&q='+serie
       break;
 
     case tipo == 'mouse':
-      mouse(s)
+      urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA1714&q='+serie
       break;
 
     case tipo == 'teclado':
-      teclado(s)
-      break;
-    
-    default:
-      motherboard(s)
+      urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA418448&q='+serie
       break;
   }
 }
 
-//armar objetos
+//armar productos
 function armarProducto(serie, modelo, tipo){
-  let prom = 0
+  let precio = 0
   let p = []
   armarURL(tipo, serie)
   return fetch(urlBusqueda)
@@ -112,12 +67,11 @@ function armarProducto(serie, modelo, tipo){
       var producto = data.results[i];
         if(producto.title.toLowerCase().includes(modelo)){
           p.push(producto);
-          prom = p[0].price}
+          precio = p[0].price}
     }
-      return new Producto(modelo.toUpperCase()+' '+serie.toUpperCase(),p[0].thumbnail, prom, p[0].permalink);
+      return new Producto(modelo.toUpperCase()+' '+serie.toUpperCase(),p[0].thumbnail, precio, p[0].permalink);
 })
-}
-  
+} 
 
 //funciones que escriben html armar productos
 function armarProductos(array, tipo){
@@ -125,20 +79,20 @@ function armarProductos(array, tipo){
   for(let i=0; i<array.length; i++){
     armarProducto(array[i]['serie'], array[i]['modelo'], tipo)
     .then(producto =>{
-      resultados = resultados + `
+      resultados +=`
       <div class="col-3 box">
             <figure class="card card-product img">
               <div class="img-container">
                 <div class="img-wrap"> 
-                  <img src="`+producto.imagen+`">
+                  <img src="${producto.imagen}">
                 </div>
               </div>
               <figcaption class="info-wrap">
-                <h6 class="title text-dots"><a href="`+ producto.url +`">`+producto.nombre+`</a></h6>
+                <h6 class="title text-dots"><a href="${producto.url}" target="_blank">${producto.nombre}</a></h6>
                 <div class="action-wrap">
-                  <a class="btn btn-primary btn-sm float-right boton-carrito" onclick="agregarAlCarrito(`+`'`+array[i]['serie']+`',`+`'`+array[i]['modelo']+`'`+`,'`+tipo+`')"> <i class="fas fa-cart-plus carrito"></i> </a>
+                  <a class="btn btn-primary btn-sm float-right boton-carrito" onclick="agregarAlCarrito('${array[i]['serie']}','${array[i]['modelo']}','${tipo}')"> <i class="fas fa-cart-plus carrito"></i> </a>
                   <div class="price-wrap h5">
-                    <span class="price-new">Precio: $` + producto.precio + `</span>
+                    <span class="price-new">$ ${producto.precio} </span>
                   </div> 
                 </div> 
               </figcaption>
@@ -148,39 +102,45 @@ function armarProductos(array, tipo){
       document.getElementById("productos").innerHTML = resultados;
   })
   }
-
 }
 
 // funciones onclick
 function cambiar(n){
     switch(n > 0 ){
         case n == 1:
-            armarProductos(mothers, 'motherboard')
+            armarProductos(mother, 'motherboard')
             break;
         case n == 2:
-            armarProductos(procesadores, 'procesador')
+            armarProductos(procesador, 'procesador')
             break;
         case n == 3:
-            armarProductos(memoriaRam, 'ram')
+            armarProductos(ram, 'ram')
+            break;
+        case n == 4:
+            armarProductos(tarjetaGrafica, 'tarjetaGrafica')
+            break;
+        case n == 5:
+            armarProductos(disco, 'disco')
+            break;
+        case n == 6:
+            armarProductos(fuente, 'fuente')
+            break;
+        case n == 7:
+            armarProductos(gabinete, 'gabinete')
+            break;
+        case n == 8:
+            armarProductos(monitor, 'monitor')
+            break;
+        case n == 9:
+            armarProductos(mouse, 'mouse')
+            break;
+        case n == 10:
+            armarProductos(teclado, 'teclado')
             break;
         default:
-            armarProductos(mothers, 'motherboard')
+            armarProductos(mother, 'motherboard')
             break;
     }
-}
-
-function verTotalEnModal(){
-  total = 0
-  armarCarro().forEach(producto =>{
-    if(producto != null){
-      total+= producto.precio
-      document.getElementById("modalTotal").innerHTML = total;
-    }
-    else{
-      total+=0
-      document.getElementById("modalTotal").innerHTML = total;
-    }
-  })
 }
 
 function actualizarTotal(){
@@ -200,7 +160,6 @@ function actualizarTotal(){
 function agregarAlCarrito(serie, modelo, tipo){
   armarProducto(serie, modelo, tipo)
   .then(producto => {
-    carro.push(producto)
     armarCarro()
     carro.push(producto)
     localStorage.setItem('carro', JSON.stringify(carro));
@@ -208,21 +167,17 @@ function agregarAlCarrito(serie, modelo, tipo){
   })
 }
 
-function agregarACarrito(serie, modelo){
-  armarMotherboard(serie, modelo)
-  .then(producto => {
-    armarCarro()
-    carro.push(producto)
-    localStorage.setItem('carro', JSON.stringify(carro));
-    actualizarTotal()
-  })
-}
-
-function restarDeCarrito(serie,modelo){
-  armarMotherboard(serie,modelo)
-  .then(producto => {
-    total-= producto.precio
-    document.getElementById("total").innerHTML = total; 
+function verTotalEnModal(){
+  total = 0
+  armarCarro().forEach(producto =>{
+    if(producto != null){
+      total+= producto.precio
+      document.getElementById("modalTotal").innerHTML = total;
+    }
+    else{
+      total+=0
+      document.getElementById("modalTotal").innerHTML = total;
+    }
   })
 }
 
@@ -230,5 +185,5 @@ function restarDeCarrito(serie,modelo){
 window.onload = cambiar
 
 //funciones
-actualizarTotal();
 armarCarro();
+actualizarTotal();

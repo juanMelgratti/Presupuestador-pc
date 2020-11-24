@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/back.css">
     <link rel="stylesheet" href="css/modal.css">
+    <script src="js/armarCarro.js"></script>
     <script src="js/arreglos.js"></script>
     <script src="js/objetos.js"></script>
     <script defer src="js/productos.js"></script>
@@ -38,7 +39,7 @@
             </li>
 
           </ul>
-                <div class="carrito"><span id="total"></span> <a class="btn btn-outline-danger boton-carrito" onclick="modal(carro), resetear(), verTotalEnModal()" data-toggle="modal" data-target="#carrito-modal"><i class="fas fa-shopping-cart"></i></a></div>
+                <div class="carrito">$ <span id="total"></span> <a class="btn btn-outline-danger boton-carrito" onclick="modal(carro), resetear(), verTotalEnModal()" data-toggle="modal" data-target="#carrito-modal"><i class="fas fa-shopping-cart"></i></a></div>
             </div>
           </nav>
         </div>
@@ -51,16 +52,16 @@
       <div class="nav-container col-2">
         <nav>
           <ul>
-            <li><a class="btn btn-outline-danger boton-carrito boton"  onclick="cambiar(1)">Placas madres</a></li>
-            <li><a class="btn btn-outline-danger boton-carrito boton"  onclick="cambiar(2)">Procesarodres</a></li>
+            <li><a class="btn btn-outline-danger boton-carrito boton" onclick="cambiar(1)">Placas madres</a></li>
+            <li><a class="btn btn-outline-danger boton-carrito boton" onclick="cambiar(2)">Procesarodres</a></li>
             <li><a class="btn btn-outline-danger boton-carrito boton" onclick="cambiar(3)">Memorias Ram</a></li>
-            <li><a class="btn btn-outline-danger boton-carrito boton" >Placas de video</a></li>
-            <li><a class="btn btn-outline-danger boton-carrito boton" >Discos</a></li>
-            <li><a class="btn btn-outline-danger boton-carrito boton" >Fuentes</a></li>
-            <li><a class="btn btn-outline-danger boton-carrito boton" >Gabinetes</a></li>
-            <li><a class="btn btn-outline-danger boton-carrito boton" >Monitores</a></li>
-            <li><a class="btn btn-outline-danger boton-carrito boton" >Mouse</a></li>
-            <li><a class="btn btn-outline-danger boton-carrito boton" >Teclados</a></li>
+            <li><a class="btn btn-outline-danger boton-carrito boton" onclick="cambiar(4)">Placas de video</a></li>
+            <li><a class="btn btn-outline-danger boton-carrito boton" onclick="cambiar(5)">Discos</a></li>
+            <li><a class="btn btn-outline-danger boton-carrito boton" onclick="cambiar(6)">Fuentes</a></li>
+            <li><a class="btn btn-outline-danger boton-carrito boton" onclick="cambiar(7)">Gabinetes</a></li>
+            <li><a class="btn btn-outline-danger boton-carrito boton" onclick="cambiar(8)">Monitores</a></li>
+            <li><a class="btn btn-outline-danger boton-carrito boton" onclick="cambiar(9)">Mouse</a></li>
+            <li><a class="btn btn-outline-danger boton-carrito boton" onclick="cambiar(10)">Teclados</a></li>
           </ul>  
         </nav>
       </div>
@@ -72,7 +73,6 @@
       </div>
       </div>
     </div>    
-
     <footer class="page-footer font-small unique-color-dark">
 
       <div style="background-color: #420068;">

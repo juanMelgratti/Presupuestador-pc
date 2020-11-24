@@ -25,7 +25,7 @@ function objetosDelCarrito(carrito){
     for(let i=0; i<carrito.length; i++) {
         if(carrito[i] != null){    
         lista += `
-            <div id="objeto${i}"><li class="item">`+carrito[i].nombre+` $`+carrito[i].precio+`</li> <button class="btn btn-danger boton-modal" onclick="borrar(${i})"><i class="fas fa-trash-alt"></i></button>
+            <div id="objeto${i}"><a href="${carrito[i].url}" target="_blank"><li class="item">${carrito[i].nombre} $ ${carrito[i].precio}</a></li> <button class="btn btn-danger boton-modal" onclick="borrar(${i})"><i class="fas fa-trash-alt"></i></button>
             <hr></div>   
    `
     }
@@ -42,9 +42,9 @@ function modal(carrito){
                 <h1 class="titulo" style="color:#1082af;">Presupuesto</h1>
                 <hr>
                 <ul>
-                <div id="lista">`+
-                    objetosDelCarrito(carrito)
-                    +`</div>
+                <div id="lista">
+                    ${objetosDelCarrito(carrito)}
+                    </div>
                 </ul>
             </div>
             <div class="modal-footer">
