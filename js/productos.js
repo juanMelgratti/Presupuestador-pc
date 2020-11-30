@@ -90,7 +90,7 @@ function armarProductos(array, tipo){
               <figcaption class="info-wrap">
                 <h6 class="title text-dots"><a href="${producto.url}" target="_blank">${producto.nombre}</a></h6>
                 <div class="action-wrap">
-                  <a class="btn btn-primary btn-sm float-right boton-carrito" onclick="agregarAlCarrito('${array[i]['serie']}','${array[i]['modelo']}','${tipo}')"> <i class="fas fa-cart-plus carrito"></i> </a>
+                  <a id="myBtn" class="btn btn-primary btn-sm float-right boton-carrito" onclick="agregarAlCarrito('${array[i]['serie']}','${array[i]['modelo']}','${tipo}')"> <i class="fas fa-cart-plus carrito"></i> </a>
                   <div class="price-wrap h5">
                     <span class="price-new">$ ${producto.precio} </span>
                   </div> 
