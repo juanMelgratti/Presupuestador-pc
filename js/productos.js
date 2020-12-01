@@ -1,5 +1,6 @@
 var total = 0;
 var carro = [];
+let getProducto =  document.getElementById("productos")
 
 function armarCarro(){
   let carrito = localStorage.getItem("carro")
@@ -71,7 +72,7 @@ function armarProducto(serie, modelo, tipo){
     }
       return new Producto(modelo.toUpperCase()+' '+serie.toUpperCase(),p[0].thumbnail, precio, p[0].permalink);
 })
-} 
+}
 
 //funciones que escriben html armar productos
 function armarProductos(array, tipo){
@@ -99,13 +100,14 @@ function armarProductos(array, tipo){
             </figure> 
           </div>   
       `
-      document.getElementById("productos").innerHTML = resultados;
+      getProducto.innerHTML = resultados;
   })
   }
 }
 
 // funciones onclick
 function cambiar(n){
+  if(getProducto){
     switch(n > 0 ){
         case n == 1:
             armarProductos(mother, 'motherboard')
@@ -141,7 +143,7 @@ function cambiar(n){
             armarProductos(mother, 'motherboard')
             break;
     }
-}
+}}
 
 function actualizarTotal(){
   total = 0

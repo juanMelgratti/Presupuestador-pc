@@ -1,5 +1,14 @@
 var lista = '';
 
+var carro = [];
+
+function armarCarro(){
+  let carrito = localStorage.getItem("carro")
+  if(carrito != null){
+    return carro = JSON.parse(carrito)
+  }
+}
+
 function resetear(){
     lista = ''
 }
@@ -23,10 +32,10 @@ function limpiarCarro(){
 
 function objetosDelCarrito(carrito){
     for(let i=0; i<carrito.length; i++) {
-        if(carrito[i] != null){    
+        if(carrito[i] != null){
         lista += `
             <div id="objeto${i}"><a href="${carrito[i].url}" target="_blank"><li class="item">${carrito[i].nombre} $ ${carrito[i].precio}</a></li> <button class="btn btn-danger boton-modal" onclick="borrar(${i})"><i class="fas fa-trash-alt"></i></button>
-            <hr></div>   
+            <hr></div>
    `
     }
     };
@@ -48,7 +57,7 @@ function modal(carrito){
                 </ul>
             </div>
             <div class="modal-footer">
-                
+
                     <div> <span id="modalTotal"></span> $ARS <i class="fas fa-shopping-cart"></i></div>
                     <button type="button" onclick="limpiarCarro()" class="btn btn-warning">Limpiar Carrito</button>
                 </div>
@@ -59,5 +68,3 @@ function modal(carrito){
     `
     document.getElementById("mod").innerHTML = modalString;
 }
-
-
