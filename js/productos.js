@@ -1,104 +1,63 @@
 var total = 0;
 var carro = [];
-let getProducto =  document.getElementById("productos")
+
+let getProducto =  document.getElementById("productos");
+let getTotal = document.getElementById("total");
 
 function armarCarro(){
-  let carrito = localStorage.getItem("carro")
+  let carrito = localStorage.getItem("carro");
   if(carrito != null){
     return carro = JSON.parse(carrito)
-  } 
+  }
+  //generar si no existe en el local storage el item 'carro' generarlo y que sea igual a un array vacío
 }
 
 //armadoURL
-var urlBusqueda = ''
-
-function armarURL(tipo, serie){
-  switch(tipo != ''){
-    case tipo == 'procesador':
-      urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA1693&q='+serie
-      break;
-
-    case tipo == 'motherboard':
-      urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA1692&q='+serie
-      break;
-
-    case tipo == 'ram':
-      urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA1694&q='+serie
-      break;
-
-    case tipo == 'tarjetaGrafica':
-      urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA1658&q='+serie
-      break;
-
-    case tipo == 'disco':
-      urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA1672&q='+serie
-      break;
-
-    case tipo == 'fuente':
-      urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA1695&q='+serie
-      break;
-
-    case tipo == 'gabinete':
-      urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA4286&q='+serie
-      break;
-
-    case tipo == 'monitor':
-      urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA14407&q='+serie
-      break;
-
-    case tipo == 'mouse':
-      urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA1714&q='+serie
-      break;
-
-    case tipo == 'teclado':
-      urlBusqueda = 'https://api.mercadolibre.com/sites/MLA/search?category=MLA418448&q='+serie
-      break;
-  }
+function armarURL(tipo, busqueda){
+  let urlArmada = '';
+  return urlArmada = urls[0][tipo]+busqueda;
 }
 
 //armar productos
-function armarProducto(serie, modelo, tipo){
-  let precio = 0
-  let p = []
-  armarURL(tipo, serie)
+function armarProducto(busqueda, marca, tipo){
+  let p = [];
+  urlBusqueda = armarURL(tipo, busqueda);
   return fetch(urlBusqueda)
   .then(response => response.json())
   .then(data => {
     for(let i=0; i<20; i++){
       var producto = data.results[i];
-        if(producto.title.toLowerCase().includes(modelo)){
-          p.push(producto);
-          precio = p[0].price}
+        if(producto.title.toLowerCase().includes(marca)){
+          p.push(producto)}
     }
-      return new Producto(modelo.toUpperCase()+' '+serie.toUpperCase(),p[0].thumbnail, precio, p[0].permalink);
+      return new Producto(busqueda.toUpperCase(),p[0].thumbnail, p[0].price, p[0].permalink);
 })
 }
 
-//funciones que escriben html armar productos
 function armarProductos(array, tipo){
-  let resultados = ''
+  let resultados = '';
   for(let i=0; i<array.length; i++){
-    armarProducto(array[i]['serie'], array[i]['modelo'], tipo)
+    armarProducto(array[i]['busqueda'], array[i]['marca'], tipo)
     .then(producto =>{
       resultados +=`
       <div class="col-3 box">
             <figure class="card card-product img">
               <div class="img-container">
-                <div class="img-wrap"> 
+                <div class="img-wrap">
                   <img src="${producto.imagen}">
                 </div>
               </div>
               <figcaption class="info-wrap">
                 <h6 class="title text-dots"><a href="${producto.url}" target="_blank">${producto.nombre}</a></h6>
                 <div class="action-wrap">
-                  <a id="myBtn" class="btn btn-primary btn-sm float-right boton-carrito" onclick="agregarAlCarrito('${array[i]['serie']}','${array[i]['modelo']}','${tipo}')"> <i class="fas fa-cart-plus carrito"></i> </a>
+                  <a id="myBtn" class="btn btn-primary btn-sm float-right boton-carrito" onclick="agregarAlCarrito('${array[i]['busqueda']}','${array[i]['marca']}','${tipo}')"> <i class="fas fa-cart-plus carrito"></i> </a>
                   <div class="price-wrap h5">
                     <span class="price-new">$ ${producto.precio} </span>
-                  </div> 
-                </div> 
+                  </div>
+                </div>
               </figcaption>
-            </figure> 
-          </div>   
+            </figure>
+          </div>
       `
       getProducto.innerHTML = resultados;
   })
@@ -106,6 +65,34 @@ function armarProductos(array, tipo){
 }
 
 // funciones onclick
+function actualizarTotal(){
+  total = 0
+  if(armarCarro() == undefined){
+    getTotal.innerHTML = 0
+  }
+  else{
+    armarCarro().forEach(producto =>{
+      if(producto != null){
+      total += producto.precio;
+      getTotal.innerHTML = total
+      }
+      else{
+        total += 0;
+        getTotal.innerHTML = total;
+      }
+  })}
+}
+
+function agregarAlCarrito(serie, marca, tipo){
+  armarProducto(serie, marca, tipo)
+  .then(producto => {
+    armarCarro();
+    carro.push(producto);
+    localStorage.setItem('carro', JSON.stringify(carro));
+    actualizarTotal()
+  })
+}
+
 function cambiar(n){
   if(getProducto){
     switch(n > 0 ){
@@ -145,47 +132,25 @@ function cambiar(n){
     }
 }}
 
-function actualizarTotal(){
-  total = 0
-  armarCarro().forEach(producto =>{
-    if(producto != null){
-    total += producto.precio
-    document.getElementById("total").innerHTML = total;
-    }
-    else{
-      total += 0
-      document.getElementById("total").innerHTML = total;
-    }
-})
-}
-
-function agregarAlCarrito(serie, modelo, tipo){
-  armarProducto(serie, modelo, tipo)
-  .then(producto => {
-    armarCarro()
-    carro.push(producto)
-    localStorage.setItem('carro', JSON.stringify(carro));
-    actualizarTotal()
-  })
-}
-
 function verTotalEnModal(){
   total = 0
-  armarCarro().forEach(producto =>{
-    if(producto != null){
-      total+= producto.precio
-      document.getElementById("modalTotal").innerHTML = total;
-    }
-    else{
-      total+=0
-      document.getElementById("modalTotal").innerHTML = total;
-    }
-  })
+  if(armarCarro() == undefined){
+    document.getElementById("modalTotal").innerHTML = 0
+  }
+  else{
+    armarCarro().forEach(producto =>{
+      if(producto != null){
+        total+= producto.precio
+        document.getElementById("modalTotal").innerHTML = total;
+      }
+      else{
+        total+=0
+        document.getElementById("modalTotal").innerHTML = total;
+      }
+    })}
 }
 
 //onload
 window.onload = cambiar
-
-//funciones
 armarCarro();
 actualizarTotal();

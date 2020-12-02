@@ -3,7 +3,7 @@ var lista = '';
 var carro = [];
 
 function armarCarro(){
-  let carrito = localStorage.getItem("carro")
+  let carrito = localStorage.getItem("carro");
   if(carrito != null){
     return carro = JSON.parse(carrito)
   }
@@ -15,7 +15,7 @@ function resetear(){
 
 function borrar(i){
     carro.splice(i,1,null);
-    var producto = document.getElementById('objeto'+i);
+    let producto = document.getElementById('objeto'+i);
     producto.parentNode.removeChild(producto);
     localStorage.setItem('carro', JSON.stringify(carro));
     actualizarTotal();
