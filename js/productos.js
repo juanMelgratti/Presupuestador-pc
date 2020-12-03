@@ -9,13 +9,13 @@ function armarCarro(){
   if(carrito != null){
     return carro = JSON.parse(carrito)
   }
-  //generar si no existe en el local storage el item 'carro' generarlo y que sea igual a un array vacío
 }
 
 //armadoURL
 function armarURL(tipo, busqueda){
   let urlArmada = '';
-  return urlArmada = urls[0][tipo]+busqueda;
+  urlArmada = urls[0][tipo]+busqueda;
+  return urlArmada
 }
 
 //armar productos
